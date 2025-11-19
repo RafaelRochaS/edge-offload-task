@@ -45,6 +45,10 @@ func main() {
 
 	callbackAddr := os.Getenv("CALLBACK_ADDR")
 	sendCallback(callbackData, callbackAddr)
+
+	log.Println("Task finished.")
+
+	os.Exit(0)
 }
 
 func cpuBoundWork(n int) time.Duration {
@@ -73,8 +77,6 @@ func sendCallback(data *CallbackData, addr string) {
 	if err != nil {
 		log.Fatal("Failed to parse body: ", err)
 	}
-
-	log.Println("Body:", string(body))
 
 	resp, err := http.Post(addr, "application/json", bytes.NewBuffer(body))
 
